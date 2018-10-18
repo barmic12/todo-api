@@ -11,8 +11,8 @@ RSpec.describe "Tasks", type: :request do
 
       expect(response.content_type).to eq("application/json")
       expect(response_json['success']).to eq(true)
-      expect(response_json['data']['task']['name']).to eq(expected_params[:task][:name])
-      expect(response_json['data']['task']['status']).to eq(expected_params[:task][:status])
+      expect(response_json['data']['attributes']['name']).to eq(expected_params[:task][:name])
+      expect(response_json['data']['attributes']['status']).to eq(expected_params[:task][:status])
     end
 
     it 'should not create new task' do
@@ -24,7 +24,7 @@ RSpec.describe "Tasks", type: :request do
 
       expect(response.content_type).to eq("application/json")
       expect(response_json['success']).to eq(false)
-      expect(response_json['error']).to eq([['Name can\'t be blank']])
+      expect(response_json['errors']).to eq([['Name can\'t be blank']])
     end
   end
 
@@ -36,8 +36,8 @@ RSpec.describe "Tasks", type: :request do
 
       expect(response.content_type).to eq("application/json")
       expect(response_json['success']).to eq(true)
-      expect(response_json['data']['tasks'][0]['name']).to eq(task.name)
-      expect(response_json['data']['tasks'][0]['status']).to eq(task.status)
+      expect(response_json['data'][0]['attributes']['name']).to eq(task.name)
+      expect(response_json['data'][0]['attributes']['status']).to eq(task.status)
     end
   end
 
@@ -51,8 +51,8 @@ RSpec.describe "Tasks", type: :request do
       task.reload
       expect(response.content_type).to eq("application/json")
       expect(response_json['success']).to eq(true)
-      expect(response_json['data']['task']['name']).to eq(new_name)
-      expect(response_json['data']['task']['status']).to eq(new_status)
+      expect(response_json['data']['attributes']['name']).to eq(new_name)
+      expect(response_json['data']['attributes']['status']).to eq(new_status)
     end
   end
 

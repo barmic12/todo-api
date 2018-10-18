@@ -97,6 +97,8 @@ GEM
     factory_bot_rails (4.11.1)
       factory_bot (~> 4.11.1)
       railties (>= 3.0.0)
+    fast_jsonapi (1.4)
+      activesupport (>= 4.2)
     gherkin (5.1.0)
     globalid (0.4.1)
       activesupport (>= 4.2.0)
@@ -226,6 +228,7 @@ DEPENDENCIES
   cucumber-rails
   database_cleaner
   factory_bot_rails
+  fast_jsonapi
   pg
   pry
   pry-byebug

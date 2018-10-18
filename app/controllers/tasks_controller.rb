@@ -3,26 +3,26 @@ class TasksController < ApplicationController
   def create
     @task = Task.new(task_params)
     if @task.save
-      render json: { success: true, data: { task: @task }, error: [] }
+      render json: {success: true, data: TaskSerializer.new(@task).serializable_hash[:data], errors: [] }, status: :created
     else
-      render json: { success: false, data: { }, error: [@task.errors.full_messages] }
+      render json: { success: false, data: { }, errors: [@task.errors.full_messages] }
     end
   end
 
   def index
     @tasks = Task.all
-    render json: { success: true, data: { tasks: @tasks }, error: [] }
+    render json: { success: true, data: TaskSerializer.new(@tasks).serializable_hash[:data], errors: [] }
   end
 
   def update
     if @task.update(task_params)
-      render json: { success: true, data: { task: @task }, error: [] }
+      render json: { success: true, data: TaskSerializer.new(@task).serializable_hash[:data], errors: [] }
     end
   end
 
   def destroy
     if @task.destroy
-      render json: { success: true, data: { }, error: [] }
+      render json: { success: true, data: { }, errors: [] }
     end
   end
 
@@ -31,7 +31,7 @@ class TasksController < ApplicationController
   def set_task
     @task = Task.find_by(id: params[:id])
     if @task.nil?
-      render json: { success: true, data: {}, error: ["There is no advertisement with id #{params[:task_id]}."]}, status: :not_found and return
+      render json: { success: true, data: {}, errors: ["There is no advertisement with id #{params[:task_id]}."]}, status: :not_found and return
     end
   end
 
