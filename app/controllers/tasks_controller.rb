@@ -26,6 +26,16 @@ class TasksController < ApplicationController
     end
   end
 
+  def destroy_completed
+    Task.where(status: true).destroy_all
+    render json: { success: true, data: { }, errors: [] }
+  end
+
+  def update_all
+    Task.all.update(status: params[:status])
+    render json: { success: true, data: { }, errors: [] }
+  end
+
   private
 
   def set_task
